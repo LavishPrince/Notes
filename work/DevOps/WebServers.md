@@ -181,3 +181,33 @@ sudo nginx -t
 ```
 
 Nginx configuration files are located in the `/etc/nginx` directory.
+
+#### Nginx Sample Configuration
+
+```bash
+server {
+    listen 80;
+    server_name yourwebsite.com;
+    root /var/www/yourwebsite;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api {
+        proxy_pass http://localhost:8000/api;
+    }
+}
+```
+
+Uninstall and purge Nginx:
+
+```bash
+sudo systemctl stop nginx
+sudo apt purge nginx nginx-common nginx-full
+sudo apt autoremove --purge
+sudo rm -rf /etc/nginx
+sudo rm -rf /var/www/html
+sudo rm -rf /var/log/nginx
+sudo rm -rf /var/lib/nginx
+```
